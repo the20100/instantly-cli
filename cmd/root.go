@@ -25,7 +25,7 @@ var rootCmd = &cobra.Command{
 It outputs JSON when piped (for agent use) and human-readable tables in a terminal.
 
 Token resolution order:
-  1. INSTANTLY_API_KEY env var
+  1. INSTANTLY_API_KEY env var (or aliases: INSTANTLY_KEY, INSTANTLY_API, API_KEY_INSTANTLY, ...)
   2. Config file  (~/.config/instantly/config.json  via: instantly auth set-key)
 
 Examples:
@@ -81,7 +81,7 @@ func printInfo() {
 	fmt.Printf("    Windows:  %%AppData%%\\instantly\\config.json\n")
 	fmt.Printf("  config:   %s\n", config.Path())
 	fmt.Println()
-	fmt.Printf("    INSTANTLY_API_KEY = %s\n", maskOrEmpty(os.Getenv("INSTANTLY_API_KEY")))
+	fmt.Printf("    INSTANTLY_API_KEY = %s  (also accepts aliases: INSTANTLY_KEY, INSTANTLY_API, ...)\n", maskOrEmpty(os.Getenv("INSTANTLY_API_KEY")))
 }
 
 func maskOrEmpty(v string) string {
@@ -94,8 +94,21 @@ func maskOrEmpty(v string) string {
 	return v[:4] + "..." + v[len(v)-4:]
 }
 
+// resolveEnv returns the value of the first non-empty environment variable from the given names.
+func resolveEnv(names ...string) string {
+	for _, name := range names {
+		if v := os.Getenv(name); v != "" {
+			return v
+		}
+	}
+	return ""
+}
+
 func resolveAPIKey() (string, error) {
-	if k := os.Getenv("INSTANTLY_API_KEY"); k != "" {
+	if k := resolveEnv(
+		"INSTANTLY_API_KEY", "INSTANTLY_KEY", "INSTANTLY_API", "API_KEY_INSTANTLY", "API_INSTANTLY", "INSTANTLY_PK", "INSTANTLY_PUBLIC",
+		"INSTANTLY_API_SECRET", "INSTANTLY_SECRET_KEY", "INSTANTLY_API_SECRET_KEY", "INSTANTLY_SECRET", "SECRET_INSTANTLY", "API_SECRET_INSTANTLY", "SK_INSTANTLY", "INSTANTLY_SK",
+	); k != "" {
 		return k, nil
 	}
 	var err error
