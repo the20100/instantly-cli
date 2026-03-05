@@ -17,7 +17,7 @@ var webhookCmd = &cobra.Command{
 
 var (
 	webhookListLimit int
-	webhookListSkip  int
+	webhookListStartingAfter  string
 )
 
 var webhookListCmd = &cobra.Command{
@@ -31,7 +31,7 @@ Examples:
 	RunE: func(cmd *cobra.Command, args []string) error {
 		params := buildParams(
 			"limit", fmt.Sprintf("%d", webhookListLimit),
-			"skip", fmt.Sprintf("%d", webhookListSkip),
+			"starting_after", webhookListStartingAfter,
 		)
 		items, _, err := client.ListWebhooks(params)
 		if err != nil {
@@ -248,7 +248,7 @@ var webhookEventTypesCmd = &cobra.Command{
 
 func init() {
 	webhookListCmd.Flags().IntVar(&webhookListLimit, "limit", 20, "Maximum number of webhooks to return")
-	webhookListCmd.Flags().IntVar(&webhookListSkip, "skip", 0, "Number of webhooks to skip")
+	webhookListCmd.Flags().StringVar(&webhookListStartingAfter, "starting-after", "", "Cursor for pagination: ID of the last item from the previous page")
 
 	webhookCreateCmd.Flags().StringVar(&webhookCreateURL, "url", "", "Webhook URL *(required)*")
 	webhookCreateCmd.Flags().StringArrayVar(&webhookCreateEvents, "events", nil, "Event types (comma-separated or repeat flag)")

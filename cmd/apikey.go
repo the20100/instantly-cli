@@ -16,7 +16,7 @@ var apikeyCmd = &cobra.Command{
 
 var (
 	apikeyListLimit int
-	apikeyListSkip  int
+	apikeyListStartingAfter  string
 )
 
 var apikeyListCmd = &cobra.Command{
@@ -30,7 +30,7 @@ Examples:
 	RunE: func(cmd *cobra.Command, args []string) error {
 		params := buildParams(
 			"limit", fmt.Sprintf("%d", apikeyListLimit),
-			"skip", fmt.Sprintf("%d", apikeyListSkip),
+			"starting_after", apikeyListStartingAfter,
 		)
 		items, _, err := client.ListAPIKeys(params)
 		if err != nil {
@@ -83,7 +83,7 @@ var apikeyDeleteCmd = &cobra.Command{
 
 func init() {
 	apikeyListCmd.Flags().IntVar(&apikeyListLimit, "limit", 20, "Maximum number of API keys to return")
-	apikeyListCmd.Flags().IntVar(&apikeyListSkip, "skip", 0, "Number of API keys to skip")
+	apikeyListCmd.Flags().StringVar(&apikeyListStartingAfter, "starting-after", "", "Cursor for pagination: ID of the last item from the previous page")
 
 	apikeyCmd.AddCommand(
 		apikeyListCmd,

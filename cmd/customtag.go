@@ -16,7 +16,7 @@ var customtagCmd = &cobra.Command{
 
 var (
 	customtagListLimit int
-	customtagListSkip  int
+	customtagListStartingAfter  string
 )
 
 var customtagListCmd = &cobra.Command{
@@ -30,7 +30,7 @@ Examples:
 	RunE: func(cmd *cobra.Command, args []string) error {
 		params := buildParams(
 			"limit", fmt.Sprintf("%d", customtagListLimit),
-			"skip", fmt.Sprintf("%d", customtagListSkip),
+			"starting_after", customtagListStartingAfter,
 		)
 		items, _, err := client.ListCustomTags(params)
 		if err != nil {
@@ -180,7 +180,7 @@ Examples:
 
 func init() {
 	customtagListCmd.Flags().IntVar(&customtagListLimit, "limit", 20, "Maximum number of tags to return")
-	customtagListCmd.Flags().IntVar(&customtagListSkip, "skip", 0, "Number of tags to skip")
+	customtagListCmd.Flags().StringVar(&customtagListStartingAfter, "starting-after", "", "Cursor for pagination: ID of the last item from the previous page")
 
 	customtagCreateCmd.Flags().StringVar(&customtagCreateColor, "color", "", "Tag color (hex or name)")
 

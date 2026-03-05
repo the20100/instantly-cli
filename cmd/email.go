@@ -21,7 +21,6 @@ var (
 	emailListType        string
 	emailListIsUnread    bool
 	emailListLimit       int
-	emailListSkip        int
 	emailListStartAfter  string
 )
 
@@ -42,7 +41,6 @@ Examples:
 			"account_email", emailListAccountEmail,
 			"type", emailListType,
 			"limit", fmt.Sprintf("%d", emailListLimit),
-			"skip", fmt.Sprintf("%d", emailListSkip),
 			"starting_after", emailListStartAfter,
 		)
 		if cmd.Flags().Changed("is-unread") {
@@ -188,7 +186,6 @@ func init() {
 	emailListCmd.Flags().StringVar(&emailListType, "type", "", "Filter by type (sent, received, reply)")
 	emailListCmd.Flags().BoolVar(&emailListIsUnread, "is-unread", false, "Show only unread emails")
 	emailListCmd.Flags().IntVar(&emailListLimit, "limit", 20, "Maximum number of emails to return")
-	emailListCmd.Flags().IntVar(&emailListSkip, "skip", 0, "Number of emails to skip")
 	emailListCmd.Flags().StringVar(&emailListStartAfter, "starting-after", "", "Cursor for pagination")
 
 	// reply flags

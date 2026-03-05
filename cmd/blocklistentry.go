@@ -16,7 +16,7 @@ var blocklistCmd = &cobra.Command{
 
 var (
 	blocklistListLimit int
-	blocklistListSkip  int
+	blocklistListStartingAfter  string
 )
 
 var blocklistListCmd = &cobra.Command{
@@ -30,7 +30,7 @@ Examples:
 	RunE: func(cmd *cobra.Command, args []string) error {
 		params := buildParams(
 			"limit", fmt.Sprintf("%d", blocklistListLimit),
-			"skip", fmt.Sprintf("%d", blocklistListSkip),
+			"starting_after", blocklistListStartingAfter,
 		)
 		items, _, err := client.ListBlocklistEntries(params)
 		if err != nil {
@@ -157,7 +157,7 @@ var blocklistDeleteCmd = &cobra.Command{
 
 func init() {
 	blocklistListCmd.Flags().IntVar(&blocklistListLimit, "limit", 20, "Maximum number of entries to return")
-	blocklistListCmd.Flags().IntVar(&blocklistListSkip, "skip", 0, "Number of entries to skip")
+	blocklistListCmd.Flags().StringVar(&blocklistListStartingAfter, "starting-after", "", "Cursor for pagination: ID of the last item from the previous page")
 
 	blocklistCreateCmd.Flags().StringVar(&blocklistCreateValue, "value", "", "Email or domain to block *(required)*")
 	blocklistCreateCmd.Flags().StringVar(&blocklistCreateType, "type", "", "Entry type: email or domain *(required)*")

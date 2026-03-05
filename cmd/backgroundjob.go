@@ -16,7 +16,7 @@ var backgroundjobCmd = &cobra.Command{
 
 var (
 	backgroundjobListLimit int
-	backgroundjobListSkip  int
+	backgroundjobListStartingAfter  string
 )
 
 var backgroundjobListCmd = &cobra.Command{
@@ -30,7 +30,7 @@ Examples:
 	RunE: func(cmd *cobra.Command, args []string) error {
 		params := buildParams(
 			"limit", fmt.Sprintf("%d", backgroundjobListLimit),
-			"skip", fmt.Sprintf("%d", backgroundjobListSkip),
+			"starting_after", backgroundjobListStartingAfter,
 		)
 		items, _, err := client.ListBackgroundJobs(params)
 		if err != nil {
@@ -72,7 +72,7 @@ var backgroundjobGetCmd = &cobra.Command{
 
 func init() {
 	backgroundjobListCmd.Flags().IntVar(&backgroundjobListLimit, "limit", 20, "Maximum number of jobs to return")
-	backgroundjobListCmd.Flags().IntVar(&backgroundjobListSkip, "skip", 0, "Number of jobs to skip")
+	backgroundjobListCmd.Flags().StringVar(&backgroundjobListStartingAfter, "starting-after", "", "Cursor for pagination: ID of the last item from the previous page")
 
 	backgroundjobCmd.AddCommand(
 		backgroundjobListCmd,

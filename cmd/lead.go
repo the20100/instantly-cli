@@ -15,12 +15,12 @@ var leadCmd = &cobra.Command{
 // ---- lead list ----
 
 var (
-	leadListCampaignID string
-	leadListID         string
-	leadListEmail      string
-	leadListStatus     string
-	leadListLimit      int
-	leadListSkip       int
+	leadListCampaignID    string
+	leadListID            string
+	leadListEmail         string
+	leadListStatus        string
+	leadListLimit         int
+	leadListStartingAfter string
 )
 
 var leadListCmd = &cobra.Command{
@@ -32,6 +32,7 @@ Examples:
   instantly lead list --campaign-id <id>
   instantly lead list --list-id <id>
   instantly lead list --status interested
+  instantly lead list --starting-after <id>
   instantly lead list --json`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		params := buildParams(
@@ -40,7 +41,7 @@ Examples:
 			"email", leadListEmail,
 			"lt_interest_status", leadListStatus,
 			"limit", fmt.Sprintf("%d", leadListLimit),
-			"skip", fmt.Sprintf("%d", leadListSkip),
+			"starting_after", leadListStartingAfter,
 		)
 		items, _, err := client.ListLeads(params)
 		if err != nil {
@@ -253,7 +254,7 @@ func init() {
 	leadListCmd.Flags().StringVar(&leadListEmail, "email", "", "Filter by email address")
 	leadListCmd.Flags().StringVar(&leadListStatus, "status", "", "Filter by interest status")
 	leadListCmd.Flags().IntVar(&leadListLimit, "limit", 20, "Maximum number of leads to return")
-	leadListCmd.Flags().IntVar(&leadListSkip, "skip", 0, "Number of leads to skip")
+	leadListCmd.Flags().StringVar(&leadListStartingAfter, "starting-after", "", "Cursor for pagination: ID of the last lead from the previous page")
 
 	// create flags
 	leadCreateCmd.Flags().StringVar(&leadCreateFirstName, "first-name", "", "First name")

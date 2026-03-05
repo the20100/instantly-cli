@@ -16,10 +16,10 @@ var accountCmd = &cobra.Command{
 // ---- account list ----
 
 var (
-	accountListLimit  int
-	accountListSkip   int
-	accountListSearch string
-	accountListStatus string
+	accountListLimit         int
+	accountListStartingAfter string
+	accountListSearch        string
+	accountListStatus        string
 )
 
 var accountListCmd = &cobra.Command{
@@ -30,11 +30,12 @@ var accountListCmd = &cobra.Command{
 Examples:
   instantly account list
   instantly account list --status active
+  instantly account list --starting-after <id>
   instantly account list --json`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		params := buildParams(
 			"limit", fmt.Sprintf("%d", accountListLimit),
-			"skip", fmt.Sprintf("%d", accountListSkip),
+			"starting_after", accountListStartingAfter,
 			"search", accountListSearch,
 			"status", accountListStatus,
 		)
@@ -349,7 +350,7 @@ var accountResumeCmd = &cobra.Command{
 func init() {
 	// list flags
 	accountListCmd.Flags().IntVar(&accountListLimit, "limit", 20, "Maximum number of accounts to return")
-	accountListCmd.Flags().IntVar(&accountListSkip, "skip", 0, "Number of accounts to skip")
+	accountListCmd.Flags().StringVar(&accountListStartingAfter, "starting-after", "", "Cursor for pagination: ID of the last account from the previous page")
 	accountListCmd.Flags().StringVar(&accountListSearch, "search", "", "Filter by email or name")
 	accountListCmd.Flags().StringVar(&accountListStatus, "status", "", "Filter by status")
 

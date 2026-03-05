@@ -115,7 +115,7 @@ func (c *Client) Delete(path string, params url.Values) ([]byte, error) {
 // ===== Campaign =====
 
 func (c *Client) ListCampaigns(params url.Values) ([]Campaign, string, error) {
-	body, err := c.Get("/campaign", params)
+	body, err := c.Get("/campaigns", params)
 	if err != nil {
 		return nil, "", err
 	}
@@ -124,7 +124,7 @@ func (c *Client) ListCampaigns(params url.Values) ([]Campaign, string, error) {
 }
 
 func (c *Client) GetCampaign(id string) (*Campaign, error) {
-	body, err := c.Get("/campaign/"+id, nil)
+	body, err := c.Get("/campaigns/"+id, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -133,7 +133,7 @@ func (c *Client) GetCampaign(id string) (*Campaign, error) {
 }
 
 func (c *Client) CreateCampaign(payload map[string]interface{}) (*Campaign, error) {
-	body, err := c.Post("/campaign", nil, payload)
+	body, err := c.Post("/campaigns", nil, payload)
 	if err != nil {
 		return nil, err
 	}
@@ -142,7 +142,7 @@ func (c *Client) CreateCampaign(payload map[string]interface{}) (*Campaign, erro
 }
 
 func (c *Client) UpdateCampaign(id string, payload map[string]interface{}) (*Campaign, error) {
-	body, err := c.Patch("/campaign/"+id, nil, payload)
+	body, err := c.Patch("/campaigns/"+id, nil, payload)
 	if err != nil {
 		return nil, err
 	}
@@ -151,22 +151,22 @@ func (c *Client) UpdateCampaign(id string, payload map[string]interface{}) (*Cam
 }
 
 func (c *Client) DeleteCampaign(id string) error {
-	_, err := c.Delete("/campaign/"+id, nil)
+	_, err := c.Delete("/campaigns/"+id, nil)
 	return err
 }
 
 func (c *Client) ActivateCampaign(id string) error {
-	_, err := c.Post("/campaign/"+id+"/activate", nil, map[string]interface{}{})
+	_, err := c.Post("/campaigns/"+id+"/activate", nil, map[string]interface{}{})
 	return err
 }
 
 func (c *Client) PauseCampaign(id string) error {
-	_, err := c.Post("/campaign/"+id+"/pause", nil, map[string]interface{}{})
+	_, err := c.Post("/campaigns/"+id+"/pause", nil, map[string]interface{}{})
 	return err
 }
 
 func (c *Client) GetCampaignAnalytics(id string, params url.Values) (*CampaignAnalytics, error) {
-	body, err := c.Get("/campaign/"+id+"/analytics", params)
+	body, err := c.Get("/campaigns/"+id+"/analytics", params)
 	if err != nil {
 		return nil, err
 	}
@@ -175,7 +175,7 @@ func (c *Client) GetCampaignAnalytics(id string, params url.Values) (*CampaignAn
 }
 
 func (c *Client) GetCampaignAnalyticsOverview(params url.Values) ([]CampaignAnalytics, error) {
-	body, err := c.Get("/campaign/analytics/overview", params)
+	body, err := c.Get("/campaigns/analytics/overview", params)
 	if err != nil {
 		return nil, err
 	}
@@ -190,7 +190,7 @@ func (c *Client) GetCampaignAnalyticsOverview(params url.Values) ([]CampaignAnal
 }
 
 func (c *Client) DuplicateCampaign(id string) (*Campaign, error) {
-	body, err := c.Post("/campaign/"+id+"/duplicate", nil, map[string]interface{}{})
+	body, err := c.Post("/campaigns/"+id+"/duplicate", nil, map[string]interface{}{})
 	if err != nil {
 		return nil, err
 	}
@@ -201,7 +201,7 @@ func (c *Client) DuplicateCampaign(id string) (*Campaign, error) {
 // ===== Campaign Subsequence =====
 
 func (c *Client) ListCampaignSubsequences(params url.Values) ([]CampaignSubsequence, string, error) {
-	body, err := c.Get("/campaignsubsequence", params)
+	body, err := c.Get("/campaignsubsequences", params)
 	if err != nil {
 		return nil, "", err
 	}
@@ -210,7 +210,7 @@ func (c *Client) ListCampaignSubsequences(params url.Values) ([]CampaignSubseque
 }
 
 func (c *Client) GetCampaignSubsequence(id string) (*CampaignSubsequence, error) {
-	body, err := c.Get("/campaignsubsequence/"+id, nil)
+	body, err := c.Get("/campaignsubsequences/"+id, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -219,7 +219,7 @@ func (c *Client) GetCampaignSubsequence(id string) (*CampaignSubsequence, error)
 }
 
 func (c *Client) CreateCampaignSubsequence(payload map[string]interface{}) (*CampaignSubsequence, error) {
-	body, err := c.Post("/campaignsubsequence", nil, payload)
+	body, err := c.Post("/campaignsubsequences", nil, payload)
 	if err != nil {
 		return nil, err
 	}
@@ -228,7 +228,7 @@ func (c *Client) CreateCampaignSubsequence(payload map[string]interface{}) (*Cam
 }
 
 func (c *Client) UpdateCampaignSubsequence(id string, payload map[string]interface{}) (*CampaignSubsequence, error) {
-	body, err := c.Patch("/campaignsubsequence/"+id, nil, payload)
+	body, err := c.Patch("/campaignsubsequences/"+id, nil, payload)
 	if err != nil {
 		return nil, err
 	}
@@ -237,22 +237,22 @@ func (c *Client) UpdateCampaignSubsequence(id string, payload map[string]interfa
 }
 
 func (c *Client) DeleteCampaignSubsequence(id string) error {
-	_, err := c.Delete("/campaignsubsequence/"+id, nil)
+	_, err := c.Delete("/campaignsubsequences/"+id, nil)
 	return err
 }
 
 func (c *Client) PauseCampaignSubsequence(id string) error {
-	_, err := c.Post("/campaignsubsequence/"+id+"/pause", nil, map[string]interface{}{})
+	_, err := c.Post("/campaignsubsequences/"+id+"/pause", nil, map[string]interface{}{})
 	return err
 }
 
 func (c *Client) ResumeCampaignSubsequence(id string) error {
-	_, err := c.Post("/campaignsubsequence/"+id+"/resume", nil, map[string]interface{}{})
+	_, err := c.Post("/campaignsubsequences/"+id+"/resume", nil, map[string]interface{}{})
 	return err
 }
 
 func (c *Client) DuplicateCampaignSubsequence(id string) (*CampaignSubsequence, error) {
-	body, err := c.Post("/campaignsubsequence/"+id+"/duplicate", nil, map[string]interface{}{})
+	body, err := c.Post("/campaignsubsequences/"+id+"/duplicate", nil, map[string]interface{}{})
 	if err != nil {
 		return nil, err
 	}
@@ -263,7 +263,7 @@ func (c *Client) DuplicateCampaignSubsequence(id string) (*CampaignSubsequence, 
 // ===== Account =====
 
 func (c *Client) ListAccounts(params url.Values) ([]Account, string, error) {
-	body, err := c.Get("/account", params)
+	body, err := c.Get("/accounts", params)
 	if err != nil {
 		return nil, "", err
 	}
@@ -272,7 +272,7 @@ func (c *Client) ListAccounts(params url.Values) ([]Account, string, error) {
 }
 
 func (c *Client) GetAccount(id string) (*Account, error) {
-	body, err := c.Get("/account/"+id, nil)
+	body, err := c.Get("/accounts/"+id, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -281,7 +281,7 @@ func (c *Client) GetAccount(id string) (*Account, error) {
 }
 
 func (c *Client) CreateAccount(payload map[string]interface{}) (*Account, error) {
-	body, err := c.Post("/account", nil, payload)
+	body, err := c.Post("/accounts", nil, payload)
 	if err != nil {
 		return nil, err
 	}
@@ -290,7 +290,7 @@ func (c *Client) CreateAccount(payload map[string]interface{}) (*Account, error)
 }
 
 func (c *Client) UpdateAccount(id string, payload map[string]interface{}) (*Account, error) {
-	body, err := c.Patch("/account/"+id, nil, payload)
+	body, err := c.Patch("/accounts/"+id, nil, payload)
 	if err != nil {
 		return nil, err
 	}
@@ -299,22 +299,22 @@ func (c *Client) UpdateAccount(id string, payload map[string]interface{}) (*Acco
 }
 
 func (c *Client) DeleteAccount(id string) error {
-	_, err := c.Delete("/account/"+id, nil)
+	_, err := c.Delete("/accounts/"+id, nil)
 	return err
 }
 
 func (c *Client) EnableWarmup(emails []string) error {
-	_, err := c.Post("/account/warmup/enable", nil, map[string]interface{}{"emails": emails})
+	_, err := c.Post("/accounts/warmup/enable", nil, map[string]interface{}{"emails": emails})
 	return err
 }
 
 func (c *Client) DisableWarmup(emails []string) error {
-	_, err := c.Post("/account/warmup/disable", nil, map[string]interface{}{"emails": emails})
+	_, err := c.Post("/accounts/warmup/disable", nil, map[string]interface{}{"emails": emails})
 	return err
 }
 
 func (c *Client) GetWarmupAnalytics(params url.Values) ([]WarmupAnalytics, error) {
-	body, err := c.Get("/account/warmup/analytics", params)
+	body, err := c.Get("/accounts/warmup/analytics", params)
 	if err != nil {
 		return nil, err
 	}
@@ -327,19 +327,19 @@ func (c *Client) GetWarmupAnalytics(params url.Values) ([]WarmupAnalytics, error
 }
 
 func (c *Client) PauseAccount(email string) error {
-	_, err := c.Post("/account/pause", nil, map[string]interface{}{"email": email})
+	_, err := c.Post("/accounts/pause", nil, map[string]interface{}{"email": email})
 	return err
 }
 
 func (c *Client) ResumeAccount(email string) error {
-	_, err := c.Post("/account/resume", nil, map[string]interface{}{"email": email})
+	_, err := c.Post("/accounts/resume", nil, map[string]interface{}{"email": email})
 	return err
 }
 
 // ===== Lead =====
 
 func (c *Client) ListLeads(params url.Values) ([]Lead, string, error) {
-	body, err := c.Get("/lead", params)
+	body, err := c.Get("/leads", params)
 	if err != nil {
 		return nil, "", err
 	}
@@ -348,7 +348,7 @@ func (c *Client) ListLeads(params url.Values) ([]Lead, string, error) {
 }
 
 func (c *Client) GetLead(id string) (*Lead, error) {
-	body, err := c.Get("/lead/"+id, nil)
+	body, err := c.Get("/leads/"+id, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -357,7 +357,7 @@ func (c *Client) GetLead(id string) (*Lead, error) {
 }
 
 func (c *Client) CreateLead(payload map[string]interface{}) (*Lead, error) {
-	body, err := c.Post("/lead", nil, payload)
+	body, err := c.Post("/leads", nil, payload)
 	if err != nil {
 		return nil, err
 	}
@@ -366,7 +366,7 @@ func (c *Client) CreateLead(payload map[string]interface{}) (*Lead, error) {
 }
 
 func (c *Client) UpdateLead(id string, payload map[string]interface{}) (*Lead, error) {
-	body, err := c.Patch("/lead/"+id, nil, payload)
+	body, err := c.Patch("/leads/"+id, nil, payload)
 	if err != nil {
 		return nil, err
 	}
@@ -375,12 +375,12 @@ func (c *Client) UpdateLead(id string, payload map[string]interface{}) (*Lead, e
 }
 
 func (c *Client) DeleteLead(id string) error {
-	_, err := c.Delete("/lead/"+id, nil)
+	_, err := c.Delete("/leads/"+id, nil)
 	return err
 }
 
 func (c *Client) UpdateLeadInterest(id string, status string) (*Lead, error) {
-	body, err := c.Patch("/lead/"+id+"/interest", nil, map[string]interface{}{"interest_status": status})
+	body, err := c.Patch("/leads/"+id+"/interest", nil, map[string]interface{}{"interest_status": status})
 	if err != nil {
 		return nil, err
 	}
@@ -391,7 +391,7 @@ func (c *Client) UpdateLeadInterest(id string, status string) (*Lead, error) {
 // ===== Lead List =====
 
 func (c *Client) ListLeadLists(params url.Values) ([]LeadList, string, error) {
-	body, err := c.Get("/leadlist", params)
+	body, err := c.Get("/leadlists", params)
 	if err != nil {
 		return nil, "", err
 	}
@@ -400,7 +400,7 @@ func (c *Client) ListLeadLists(params url.Values) ([]LeadList, string, error) {
 }
 
 func (c *Client) GetLeadList(id string) (*LeadList, error) {
-	body, err := c.Get("/leadlist/"+id, nil)
+	body, err := c.Get("/leadlists/"+id, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -409,7 +409,7 @@ func (c *Client) GetLeadList(id string) (*LeadList, error) {
 }
 
 func (c *Client) CreateLeadList(payload map[string]interface{}) (*LeadList, error) {
-	body, err := c.Post("/leadlist", nil, payload)
+	body, err := c.Post("/leadlists", nil, payload)
 	if err != nil {
 		return nil, err
 	}
@@ -418,7 +418,7 @@ func (c *Client) CreateLeadList(payload map[string]interface{}) (*LeadList, erro
 }
 
 func (c *Client) UpdateLeadList(id string, payload map[string]interface{}) (*LeadList, error) {
-	body, err := c.Patch("/leadlist/"+id, nil, payload)
+	body, err := c.Patch("/leadlists/"+id, nil, payload)
 	if err != nil {
 		return nil, err
 	}
@@ -427,14 +427,14 @@ func (c *Client) UpdateLeadList(id string, payload map[string]interface{}) (*Lea
 }
 
 func (c *Client) DeleteLeadList(id string) error {
-	_, err := c.Delete("/leadlist/"+id, nil)
+	_, err := c.Delete("/leadlists/"+id, nil)
 	return err
 }
 
 // ===== Lead Label =====
 
 func (c *Client) ListLeadLabels(params url.Values) ([]LeadLabel, string, error) {
-	body, err := c.Get("/leadlabel", params)
+	body, err := c.Get("/leadlabels", params)
 	if err != nil {
 		return nil, "", err
 	}
@@ -443,7 +443,7 @@ func (c *Client) ListLeadLabels(params url.Values) ([]LeadLabel, string, error) 
 }
 
 func (c *Client) GetLeadLabel(id string) (*LeadLabel, error) {
-	body, err := c.Get("/leadlabel/"+id, nil)
+	body, err := c.Get("/leadlabels/"+id, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -452,7 +452,7 @@ func (c *Client) GetLeadLabel(id string) (*LeadLabel, error) {
 }
 
 func (c *Client) CreateLeadLabel(payload map[string]interface{}) (*LeadLabel, error) {
-	body, err := c.Post("/leadlabel", nil, payload)
+	body, err := c.Post("/leadlabels", nil, payload)
 	if err != nil {
 		return nil, err
 	}
@@ -461,7 +461,7 @@ func (c *Client) CreateLeadLabel(payload map[string]interface{}) (*LeadLabel, er
 }
 
 func (c *Client) UpdateLeadLabel(id string, payload map[string]interface{}) (*LeadLabel, error) {
-	body, err := c.Patch("/leadlabel/"+id, nil, payload)
+	body, err := c.Patch("/leadlabels/"+id, nil, payload)
 	if err != nil {
 		return nil, err
 	}
@@ -470,14 +470,14 @@ func (c *Client) UpdateLeadLabel(id string, payload map[string]interface{}) (*Le
 }
 
 func (c *Client) DeleteLeadLabel(id string) error {
-	_, err := c.Delete("/leadlabel/"+id, nil)
+	_, err := c.Delete("/leadlabels/"+id, nil)
 	return err
 }
 
 // ===== Email =====
 
 func (c *Client) ListEmails(params url.Values) ([]Email, string, error) {
-	body, err := c.Get("/email", params)
+	body, err := c.Get("/emails", params)
 	if err != nil {
 		return nil, "", err
 	}
@@ -486,7 +486,7 @@ func (c *Client) ListEmails(params url.Values) ([]Email, string, error) {
 }
 
 func (c *Client) GetEmail(id string) (*Email, error) {
-	body, err := c.Get("/email/"+id, nil)
+	body, err := c.Get("/emails/"+id, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -495,24 +495,24 @@ func (c *Client) GetEmail(id string) (*Email, error) {
 }
 
 func (c *Client) ReplyToEmail(payload map[string]interface{}) error {
-	_, err := c.Post("/email/reply", nil, payload)
+	_, err := c.Post("/emails/reply", nil, payload)
 	return err
 }
 
 func (c *Client) ForwardEmail(payload map[string]interface{}) error {
-	_, err := c.Post("/email/forward", nil, payload)
+	_, err := c.Post("/emails/forward", nil, payload)
 	return err
 }
 
 func (c *Client) MarkThreadAsRead(threadID string) error {
-	_, err := c.Post("/email/thread/read", nil, map[string]interface{}{"thread_id": threadID})
+	_, err := c.Post("/emails/thread/read", nil, map[string]interface{}{"thread_id": threadID})
 	return err
 }
 
 // ===== Email Verification =====
 
 func (c *Client) CreateEmailVerification(email string) (*EmailVerification, error) {
-	body, err := c.Post("/emailverification", nil, map[string]interface{}{"email": email})
+	body, err := c.Post("/emailverifications", nil, map[string]interface{}{"email": email})
 	if err != nil {
 		return nil, err
 	}
@@ -521,7 +521,7 @@ func (c *Client) CreateEmailVerification(email string) (*EmailVerification, erro
 }
 
 func (c *Client) GetEmailVerification(id string) (*EmailVerification, error) {
-	body, err := c.Get("/emailverification/"+id, nil)
+	body, err := c.Get("/emailverifications/"+id, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -532,7 +532,7 @@ func (c *Client) GetEmailVerification(id string) (*EmailVerification, error) {
 // ===== Webhook =====
 
 func (c *Client) ListWebhooks(params url.Values) ([]Webhook, string, error) {
-	body, err := c.Get("/webhook", params)
+	body, err := c.Get("/webhooks", params)
 	if err != nil {
 		return nil, "", err
 	}
@@ -541,7 +541,7 @@ func (c *Client) ListWebhooks(params url.Values) ([]Webhook, string, error) {
 }
 
 func (c *Client) GetWebhook(id string) (*Webhook, error) {
-	body, err := c.Get("/webhook/"+id, nil)
+	body, err := c.Get("/webhooks/"+id, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -550,7 +550,7 @@ func (c *Client) GetWebhook(id string) (*Webhook, error) {
 }
 
 func (c *Client) CreateWebhook(payload map[string]interface{}) (*Webhook, error) {
-	body, err := c.Post("/webhook", nil, payload)
+	body, err := c.Post("/webhooks", nil, payload)
 	if err != nil {
 		return nil, err
 	}
@@ -559,7 +559,7 @@ func (c *Client) CreateWebhook(payload map[string]interface{}) (*Webhook, error)
 }
 
 func (c *Client) UpdateWebhook(id string, payload map[string]interface{}) (*Webhook, error) {
-	body, err := c.Patch("/webhook/"+id, nil, payload)
+	body, err := c.Patch("/webhooks/"+id, nil, payload)
 	if err != nil {
 		return nil, err
 	}
@@ -568,22 +568,22 @@ func (c *Client) UpdateWebhook(id string, payload map[string]interface{}) (*Webh
 }
 
 func (c *Client) DeleteWebhook(id string) error {
-	_, err := c.Delete("/webhook/"+id, nil)
+	_, err := c.Delete("/webhooks/"+id, nil)
 	return err
 }
 
 func (c *Client) TestWebhook(id string) error {
-	_, err := c.Post("/webhook/"+id+"/test", nil, map[string]interface{}{})
+	_, err := c.Post("/webhooks/"+id+"/test", nil, map[string]interface{}{})
 	return err
 }
 
 func (c *Client) ResumeWebhook(id string) error {
-	_, err := c.Post("/webhook/"+id+"/resume", nil, map[string]interface{}{})
+	_, err := c.Post("/webhooks/"+id+"/resume", nil, map[string]interface{}{})
 	return err
 }
 
 func (c *Client) ListWebhookEventTypes() ([]WebhookEventType, error) {
-	body, err := c.Get("/webhook/event-types", nil)
+	body, err := c.Get("/webhooks/event-types", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -603,7 +603,7 @@ func (c *Client) ListWebhookEventTypes() ([]WebhookEventType, error) {
 // ===== Custom Tag =====
 
 func (c *Client) ListCustomTags(params url.Values) ([]CustomTag, string, error) {
-	body, err := c.Get("/customtag", params)
+	body, err := c.Get("/customtags", params)
 	if err != nil {
 		return nil, "", err
 	}
@@ -612,7 +612,7 @@ func (c *Client) ListCustomTags(params url.Values) ([]CustomTag, string, error) 
 }
 
 func (c *Client) GetCustomTag(id string) (*CustomTag, error) {
-	body, err := c.Get("/customtag/"+id, nil)
+	body, err := c.Get("/customtags/"+id, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -621,7 +621,7 @@ func (c *Client) GetCustomTag(id string) (*CustomTag, error) {
 }
 
 func (c *Client) CreateCustomTag(payload map[string]interface{}) (*CustomTag, error) {
-	body, err := c.Post("/customtag", nil, payload)
+	body, err := c.Post("/customtags", nil, payload)
 	if err != nil {
 		return nil, err
 	}
@@ -630,7 +630,7 @@ func (c *Client) CreateCustomTag(payload map[string]interface{}) (*CustomTag, er
 }
 
 func (c *Client) UpdateCustomTag(id string, payload map[string]interface{}) (*CustomTag, error) {
-	body, err := c.Patch("/customtag/"+id, nil, payload)
+	body, err := c.Patch("/customtags/"+id, nil, payload)
 	if err != nil {
 		return nil, err
 	}
@@ -639,12 +639,12 @@ func (c *Client) UpdateCustomTag(id string, payload map[string]interface{}) (*Cu
 }
 
 func (c *Client) DeleteCustomTag(id string) error {
-	_, err := c.Delete("/customtag/"+id, nil)
+	_, err := c.Delete("/customtags/"+id, nil)
 	return err
 }
 
 func (c *Client) ToggleCustomTag(tagID, resourceID, resourceType string) error {
-	_, err := c.Post("/customtag/toggle", nil, map[string]interface{}{
+	_, err := c.Post("/customtags/toggle", nil, map[string]interface{}{
 		"tag_id":        tagID,
 		"resource_id":   resourceID,
 		"resource_type": resourceType,
@@ -655,7 +655,7 @@ func (c *Client) ToggleCustomTag(tagID, resourceID, resourceType string) error {
 // ===== Blocklist Entry =====
 
 func (c *Client) ListBlocklistEntries(params url.Values) ([]BlocklistEntry, string, error) {
-	body, err := c.Get("/blocklistentry", params)
+	body, err := c.Get("/blocklistentries", params)
 	if err != nil {
 		return nil, "", err
 	}
@@ -664,7 +664,7 @@ func (c *Client) ListBlocklistEntries(params url.Values) ([]BlocklistEntry, stri
 }
 
 func (c *Client) GetBlocklistEntry(id string) (*BlocklistEntry, error) {
-	body, err := c.Get("/blocklistentry/"+id, nil)
+	body, err := c.Get("/blocklistentries/"+id, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -673,7 +673,7 @@ func (c *Client) GetBlocklistEntry(id string) (*BlocklistEntry, error) {
 }
 
 func (c *Client) CreateBlocklistEntry(payload map[string]interface{}) (*BlocklistEntry, error) {
-	body, err := c.Post("/blocklistentry", nil, payload)
+	body, err := c.Post("/blocklistentries", nil, payload)
 	if err != nil {
 		return nil, err
 	}
@@ -682,7 +682,7 @@ func (c *Client) CreateBlocklistEntry(payload map[string]interface{}) (*Blocklis
 }
 
 func (c *Client) UpdateBlocklistEntry(id string, payload map[string]interface{}) (*BlocklistEntry, error) {
-	body, err := c.Patch("/blocklistentry/"+id, nil, payload)
+	body, err := c.Patch("/blocklistentries/"+id, nil, payload)
 	if err != nil {
 		return nil, err
 	}
@@ -691,14 +691,14 @@ func (c *Client) UpdateBlocklistEntry(id string, payload map[string]interface{})
 }
 
 func (c *Client) DeleteBlocklistEntry(id string) error {
-	_, err := c.Delete("/blocklistentry/"+id, nil)
+	_, err := c.Delete("/blocklistentries/"+id, nil)
 	return err
 }
 
 // ===== API Key =====
 
 func (c *Client) ListAPIKeys(params url.Values) ([]APIKey, string, error) {
-	body, err := c.Get("/apikey", params)
+	body, err := c.Get("/apikeys", params)
 	if err != nil {
 		return nil, "", err
 	}
@@ -707,7 +707,7 @@ func (c *Client) ListAPIKeys(params url.Values) ([]APIKey, string, error) {
 }
 
 func (c *Client) CreateAPIKey(name string) (*APIKey, error) {
-	body, err := c.Post("/apikey", nil, map[string]interface{}{"name": name})
+	body, err := c.Post("/apikeys", nil, map[string]interface{}{"name": name})
 	if err != nil {
 		return nil, err
 	}
@@ -716,14 +716,14 @@ func (c *Client) CreateAPIKey(name string) (*APIKey, error) {
 }
 
 func (c *Client) DeleteAPIKey(id string) error {
-	_, err := c.Delete("/apikey/"+id, nil)
+	_, err := c.Delete("/apikeys/"+id, nil)
 	return err
 }
 
 // ===== Workspace =====
 
 func (c *Client) GetWorkspace() (*Workspace, error) {
-	body, err := c.Get("/workspace", nil)
+	body, err := c.Get("/workspaces", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -732,7 +732,7 @@ func (c *Client) GetWorkspace() (*Workspace, error) {
 }
 
 func (c *Client) UpdateWorkspace(payload map[string]interface{}) (*Workspace, error) {
-	body, err := c.Patch("/workspace", nil, payload)
+	body, err := c.Patch("/workspaces", nil, payload)
 	if err != nil {
 		return nil, err
 	}
@@ -741,7 +741,7 @@ func (c *Client) UpdateWorkspace(payload map[string]interface{}) (*Workspace, er
 }
 
 func (c *Client) ListWorkspaceMembers(params url.Values) ([]WorkspaceMember, string, error) {
-	body, err := c.Get("/workspacemember", params)
+	body, err := c.Get("/workspacemembers", params)
 	if err != nil {
 		return nil, "", err
 	}
@@ -750,7 +750,7 @@ func (c *Client) ListWorkspaceMembers(params url.Values) ([]WorkspaceMember, str
 }
 
 func (c *Client) GetWorkspaceMember(id string) (*WorkspaceMember, error) {
-	body, err := c.Get("/workspacemember/"+id, nil)
+	body, err := c.Get("/workspacemembers/"+id, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -759,7 +759,7 @@ func (c *Client) GetWorkspaceMember(id string) (*WorkspaceMember, error) {
 }
 
 func (c *Client) CreateWorkspaceMember(payload map[string]interface{}) (*WorkspaceMember, error) {
-	body, err := c.Post("/workspacemember", nil, payload)
+	body, err := c.Post("/workspacemembers", nil, payload)
 	if err != nil {
 		return nil, err
 	}
@@ -768,7 +768,7 @@ func (c *Client) CreateWorkspaceMember(payload map[string]interface{}) (*Workspa
 }
 
 func (c *Client) UpdateWorkspaceMember(id string, payload map[string]interface{}) (*WorkspaceMember, error) {
-	body, err := c.Patch("/workspacemember/"+id, nil, payload)
+	body, err := c.Patch("/workspacemembers/"+id, nil, payload)
 	if err != nil {
 		return nil, err
 	}
@@ -777,14 +777,14 @@ func (c *Client) UpdateWorkspaceMember(id string, payload map[string]interface{}
 }
 
 func (c *Client) DeleteWorkspaceMember(id string) error {
-	_, err := c.Delete("/workspacemember/"+id, nil)
+	_, err := c.Delete("/workspacemembers/"+id, nil)
 	return err
 }
 
 // ===== Background Job =====
 
 func (c *Client) ListBackgroundJobs(params url.Values) ([]BackgroundJob, string, error) {
-	body, err := c.Get("/backgroundjob", params)
+	body, err := c.Get("/backgroundjobs", params)
 	if err != nil {
 		return nil, "", err
 	}
@@ -793,7 +793,7 @@ func (c *Client) ListBackgroundJobs(params url.Values) ([]BackgroundJob, string,
 }
 
 func (c *Client) GetBackgroundJob(id string) (*BackgroundJob, error) {
-	body, err := c.Get("/backgroundjob/"+id, nil)
+	body, err := c.Get("/backgroundjobs/"+id, nil)
 	if err != nil {
 		return nil, err
 	}

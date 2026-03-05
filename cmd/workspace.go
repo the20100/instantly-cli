@@ -66,7 +66,7 @@ var workspaceMemberCmd = &cobra.Command{
 
 var (
 	workspaceMemberListLimit int
-	workspaceMemberListSkip  int
+	workspaceMemberListStartingAfter  string
 )
 
 var workspaceMemberListCmd = &cobra.Command{
@@ -75,7 +75,7 @@ var workspaceMemberListCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		params := buildParams(
 			"limit", fmt.Sprintf("%d", workspaceMemberListLimit),
-			"skip", fmt.Sprintf("%d", workspaceMemberListSkip),
+			"starting_after", workspaceMemberListStartingAfter,
 		)
 		items, _, err := client.ListWorkspaceMembers(params)
 		if err != nil {
@@ -186,7 +186,7 @@ func init() {
 	workspaceUpdateCmd.Flags().String("name", "", "New workspace name *(required)*")
 
 	workspaceMemberListCmd.Flags().IntVar(&workspaceMemberListLimit, "limit", 20, "Maximum number of members to return")
-	workspaceMemberListCmd.Flags().IntVar(&workspaceMemberListSkip, "skip", 0, "Number of members to skip")
+	workspaceMemberListCmd.Flags().StringVar(&workspaceMemberListStartingAfter, "starting-after", "", "Cursor for pagination: ID of the last item from the previous page")
 
 	workspaceMemberCreateCmd.Flags().StringVar(&workspaceMemberCreateEmail, "email", "", "Member email *(required)*")
 	workspaceMemberCreateCmd.Flags().StringVar(&workspaceMemberCreateRole, "role", "member", "Role (admin, member)")

@@ -16,10 +16,10 @@ var campaignCmd = &cobra.Command{
 // ---- campaign list ----
 
 var (
-	campaignListLimit  int
-	campaignListSkip   int
-	campaignListSearch string
-	campaignListStatus string
+	campaignListLimit         int
+	campaignListStartingAfter string
+	campaignListSearch        string
+	campaignListStatus        string
 )
 
 var campaignListCmd = &cobra.Command{
@@ -31,11 +31,12 @@ Examples:
   instantly campaign list
   instantly campaign list --status active
   instantly campaign list --search "my campaign" --limit 20
+  instantly campaign list --starting-after <id>
   instantly campaign list --json`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		params := buildParams(
 			"limit", fmt.Sprintf("%d", campaignListLimit),
-			"skip", fmt.Sprintf("%d", campaignListSkip),
+			"starting_after", campaignListStartingAfter,
 			"search", campaignListSearch,
 			"status", campaignListStatus,
 		)
@@ -340,7 +341,7 @@ var campaignDuplicateCmd = &cobra.Command{
 func init() {
 	// list flags
 	campaignListCmd.Flags().IntVar(&campaignListLimit, "limit", 20, "Maximum number of campaigns to return")
-	campaignListCmd.Flags().IntVar(&campaignListSkip, "skip", 0, "Number of campaigns to skip")
+	campaignListCmd.Flags().StringVar(&campaignListStartingAfter, "starting-after", "", "Cursor for pagination: ID of the last campaign from the previous page")
 	campaignListCmd.Flags().StringVar(&campaignListSearch, "search", "", "Filter by name")
 	campaignListCmd.Flags().StringVar(&campaignListStatus, "status", "", "Filter by status (active, paused, completed, draft)")
 

@@ -16,7 +16,7 @@ var leadlistCmd = &cobra.Command{
 
 var (
 	leadlistListLimit int
-	leadlistListSkip  int
+	leadlistListStartingAfter  string
 )
 
 var leadlistListCmd = &cobra.Command{
@@ -30,7 +30,7 @@ Examples:
 	RunE: func(cmd *cobra.Command, args []string) error {
 		params := buildParams(
 			"limit", fmt.Sprintf("%d", leadlistListLimit),
-			"skip", fmt.Sprintf("%d", leadlistListSkip),
+			"starting_after", leadlistListStartingAfter,
 		)
 		items, _, err := client.ListLeadLists(params)
 		if err != nil {
@@ -129,7 +129,7 @@ var leadlistDeleteCmd = &cobra.Command{
 
 func init() {
 	leadlistListCmd.Flags().IntVar(&leadlistListLimit, "limit", 20, "Maximum number of lead lists to return")
-	leadlistListCmd.Flags().IntVar(&leadlistListSkip, "skip", 0, "Number of lead lists to skip")
+	leadlistListCmd.Flags().StringVar(&leadlistListStartingAfter, "starting-after", "", "Cursor for pagination: ID of the last item from the previous page")
 
 	leadlistUpdateCmd.Flags().String("name", "", "New lead list name *(required)*")
 

@@ -17,7 +17,7 @@ var subsequenceCmd = &cobra.Command{
 var (
 	subsequenceListCampaignID string
 	subsequenceListLimit      int
-	subsequenceListSkip       int
+	subsequenceListStartingAfter       string
 )
 
 var subsequenceListCmd = &cobra.Command{
@@ -32,7 +32,7 @@ Examples:
 		params := buildParams(
 			"campaign_id", subsequenceListCampaignID,
 			"limit", fmt.Sprintf("%d", subsequenceListLimit),
-			"skip", fmt.Sprintf("%d", subsequenceListSkip),
+			"starting_after", subsequenceListStartingAfter,
 		)
 		items, _, err := client.ListCampaignSubsequences(params)
 		if err != nil {
@@ -201,7 +201,7 @@ var subsequenceDuplicateCmd = &cobra.Command{
 func init() {
 	subsequenceListCmd.Flags().StringVar(&subsequenceListCampaignID, "campaign-id", "", "Filter by campaign ID")
 	subsequenceListCmd.Flags().IntVar(&subsequenceListLimit, "limit", 20, "Maximum number of subsequences to return")
-	subsequenceListCmd.Flags().IntVar(&subsequenceListSkip, "skip", 0, "Number of subsequences to skip")
+	subsequenceListCmd.Flags().StringVar(&subsequenceListStartingAfter, "starting-after", "", "Cursor for pagination: ID of the last item from the previous page")
 
 	subsequenceCreateCmd.Flags().StringVar(&subsequenceCreateCampaignID, "campaign-id", "", "Campaign ID *(required)*")
 	subsequenceCreateCmd.Flags().StringVar(&subsequenceCreateName, "name", "", "Subsequence name *(required)*")

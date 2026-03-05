@@ -16,7 +16,7 @@ var leadlabelCmd = &cobra.Command{
 
 var (
 	leadlabelListLimit int
-	leadlabelListSkip  int
+	leadlabelListStartingAfter  string
 )
 
 var leadlabelListCmd = &cobra.Command{
@@ -30,7 +30,7 @@ Examples:
 	RunE: func(cmd *cobra.Command, args []string) error {
 		params := buildParams(
 			"limit", fmt.Sprintf("%d", leadlabelListLimit),
-			"skip", fmt.Sprintf("%d", leadlabelListSkip),
+			"starting_after", leadlabelListStartingAfter,
 		)
 		items, _, err := client.ListLeadLabels(params)
 		if err != nil {
@@ -146,7 +146,7 @@ var leadlabelDeleteCmd = &cobra.Command{
 
 func init() {
 	leadlabelListCmd.Flags().IntVar(&leadlabelListLimit, "limit", 20, "Maximum number of labels to return")
-	leadlabelListCmd.Flags().IntVar(&leadlabelListSkip, "skip", 0, "Number of labels to skip")
+	leadlabelListCmd.Flags().StringVar(&leadlabelListStartingAfter, "starting-after", "", "Cursor for pagination: ID of the last item from the previous page")
 
 	leadlabelCreateCmd.Flags().StringVar(&leadlabelCreateColor, "color", "", "Label color (hex or name)")
 
